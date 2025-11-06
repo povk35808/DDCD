@@ -1,0 +1,790 @@
+        /* Khmer OS Battambang */
+        @font-face {
+            font-family: 'Khmer OS Battambang';
+            src: url('font/Khmer\ OS\ Battambang\ Regular.ttf');
+        }
+
+        /* Khmer OS Muol Light */
+        @font-face {
+            font-family: 'Khmer OS Muol Light';
+            src: url('font/Khmer\ OS\ Muol\ Light\ Regular.ttf');
+        }
+
+        :root {
+            --primary-color: #2e83f0;
+            --primary-dark-color: #2465c4;
+            --accent-color: #4c9ef0;
+            --background-start: #f3f4f6;
+            --background-end: #e0e6ed;
+            --text-dark: #1f2937;
+            --text-gray: #4b5563;
+            --border-color: #e5e7eb;
+            --card-bg: #ffffff;
+            --success-bg: #dcfce7;
+            --success-text: #16a34a;
+            --error-bg: #fee2e2;
+            --error-text: #dc2626;
+            --red-button: #ef4444;
+            --red-button-hover: #dc2626;
+            --placeholder-color: #9ca3af;
+            --bg-process-color: #bee2f4;
+            --text-process-color: #1e40af;
+        }
+
+        body {
+            font-family: 'Khmer OS Battambang', sans-serif;
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100dvh - 2rem);
+            padding: 1rem;
+            margin: 0;
+        }
+
+        #appContainer {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 100%;
+            transition: all 0.5s ease-in-out;
+            box-sizing: border-box;
+        }
+
+        #appContainer.dashboard-mode {
+            max-width: 100%;
+            padding: 0;
+            box-shadow: none;
+            background-color: transparent;
+        }
+
+        /* --- រចនាប្រអប់ Input ឱ្យមាន Icon --- */
+        .input-with-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-with-icon svg {
+            position: absolute;
+            left: 1rem;
+            width: 1.25rem;
+            /* 20px */
+            height: 1.25rem;
+            /* 20px */
+            color: var(--placeholder-color);
+            pointer-events: none;
+            /* ធ្វើឱ្យ Icon មិនអាចចុចបាន */
+        }
+
+        /* --- រចនា Dropdown Container ឱ្យស្អាត --- */
+        .custom-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            width: 100%;
+            max-height: 220px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            /* ពណ៌ប្រផេះស្រាល */
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            top: calc(100% + 4px);
+            /* រុញឱ្យនៅក្រោម Input បន្តិច */
+            left: 0;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        /* --- រចនា Item នីមួយៗក្នុង Dropdown --- */
+        .custom-dropdown-content div {
+            color: var(--text-dark);
+            padding: 10px 24px;
+            /* បន្ថែមช่องว่างឱ្យធំជាងមុន */
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            border: none;
+            /* មិនឱ្យមានបន្ទាត់ */
+            font-size: 0.95rem;
+        }
+
+        /* --- រចនា Hover Effect --- */
+        .custom-dropdown-content div:hover {
+            background-color: #f3f4f6;
+            /* ពណ៌ប្រផេះស្រាលពេលដាក់ Mouse លើ */
+        }
+
+        /* --- Custom Dropdown Styling --- */
+
+        /* Container for the dropdown. It's positioned relative to the input group */
+        .input-group {
+            position: relative;
+        }
+
+        .custom-dropdown-content {
+            display: none;
+            /* Hidden by default */
+            position: absolute;
+            background-color: #ffffff;
+            width: 100%;
+            max-height: 200px;
+            /* Limit height and allow scrolling */
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 0.75rem 0.75rem;
+            /* Rounded corners at the bottom */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            top: 100%;
+            /* Position it right below the input field */
+            left: 0;
+        }
+
+        /* Style for each individual name (div) in the dropdown */
+        .custom-dropdown-content div {
+            color: var(--text-dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        /* Change color on hover */
+        .custom-dropdown-content div:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Style for the scrollbar */
+        .custom-dropdown-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-dropdown-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .custom-dropdown-content::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        .custom-dropdown-content::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- Beautiful Custom Alert Styles --- */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes progressBar {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        /* Keyframes for the success icon animation */
+        @keyframes draw-circle {
+            from {
+                stroke-dashoffset: 151;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes draw-check {
+            from {
+                stroke-dashoffset: 26;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scale-up {
+            0% {
+                transform: scale(0.9);
+            }
+
+            80% {
+                transform: scale(1.02);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .custom-alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .custom-alert-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .custom-alert-box {
+            background: linear-gradient(145deg, #ffffff, #f7f9fc);
+            padding: 1rem;
+            border-radius: 1.25rem;
+            /* Slightly larger radius */
+            box-shadow: 0 15px 35px rgba(50, 80, 120, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 60%;
+            width: 400px;
+            overflow: hidden;
+            /* To keep progress bar contained */
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .custom-alert-overlay.visible .custom-alert-box {
+            animation: scale-up 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .custom-alert-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+        }
+
+        /* Specific animation for the success icon */
+        .custom-alert-overlay.visible #success-icon .circle {
+            animation: draw-circle 0.8s ease-in-out forwards;
+        }
+
+        .custom-alert-overlay.visible #success-icon .checkmark {
+            animation: draw-check 0.4s ease-in-out 0.8s forwards;
+            /* Starts after the circle is drawn */
+        }
+
+        .custom-alert-title {
+            font-family: 'Khmer OS Muol Light', sans-serif;
+            font-size: 1.3rem;
+            /* Slightly larger title */
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .custom-alert-text {
+            color: var(--text-gray);
+            font-size: 1rem;
+            margin-bottom: 1.75rem;
+            /* More space before button */
+        }
+
+        .custom-alert-button {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            color: #fff;
+            border: none;
+            padding: 0.85rem 1.75rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            font-family: 'Khmer OS Battambang', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(46, 131, 240, 0.3);
+        }
+
+        .custom-alert-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(46, 131, 240, 0.4);
+        }
+
+        .alert-progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            width: 100%;
+            background-color: var(--accent-color);
+        }
+
+        .custom-alert-overlay.visible .alert-progress-bar {
+            animation: progressBar 10s linear forwards;
+        }
+
+        .title {
+            font-family: Khmer OS Muol Light;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-group input {
+            font-family: 'Khmer OS Battambang', sans-serif;
+        }
+
+        .input-group input::placeholder,
+        textarea::placeholder {
+            font-family: 'Khmer OS Battambang', sans-serif;
+            color: var(--placeholder-color);
+            font-size: small;
+        }
+
+        .input-group textarea,
+        select {
+            background-color: #f8f8f8;
+            font-family: 'Khmer OS Battambang', sans-serif;
+        }
+
+        .input-group label,
+        .form-grid label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .input-field {
+            padding: 0.75rem 1rem;
+            display: block;
+            width: 100%;
+            border: none;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease-in-out;
+            color: var(--text-dark);
+            background-color: #f8f8f8;
+            box-sizing: border-box;
+            font-family: 'Khmer OS Battambang', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            box-shadow: 0 4px 6px rgba(46, 131, 240, 0.2);
+        }
+
+        .input-field:disabled {
+            background-color: #f8f8f8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .submit-btn {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: none;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 9999px;
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-family: 'Khmer OS Battambang', sans-serif;
+        }
+
+        .submit-btn:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .submit-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+        }
+
+        .message-box {
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-success {
+            background-color: var(--success-bg);
+            color: var(--success-text);
+        }
+
+        .message-error {
+            background-color: var(--error-bg);
+            color: var(--text-process-color);
+        }
+
+        .dashboard-header {
+            background-color: transparent;
+            border-radius: 0;
+            box-shadow: none;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            box-sizing: border-box;
+        }
+
+        .dashboard-header .logo-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Khmer OS Battambang', sans-serif;
+            text-align: center;
+        }
+
+        .dashboard-header .logo-group img {
+            width: 120px;
+            height: 130px;
+            border-radius: 0.75rem;
+        }
+
+        .dashboard-header .logo-group span {
+            font-family: Khmer OS Muol Light;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .dashboard-header .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Khmer OS Battambang', sans-serif;
+            text-align: center;
+        }
+
+        .dashboard-header .user-info span {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-gray);
+        }
+
+        .dashboard-header .logout-btn-small {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            /* Set a fixed width and height for a perfect circle */
+            height: 40px;
+            background: linear-gradient(135deg, var(--red-button), var(--red-button-hover));
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            /* Makes the button perfectly circular */
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-header .logout-btn-small:hover {
+            transform: scale(1.1);
+            /* Slightly enlarges the button on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, var(--red-button-hover), var(--red-button));
+        }
+
+        .tab-container {
+            background-color: transparent;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: all 0.5s ease;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            width: 90%;
+            font-size: 0.875rem;
+        }
+
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .dashboard-main {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            margin-top: 1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+        }
+
+        .dashboard-main.hidden {
+            display: none !important;
+        }
+
+        .dashboard-main h2 {
+            font-family: Khmer OS Muol Light;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+            text-align: center;
+        }
+
+        .dashboard-main .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .input-addon-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-addon-group .input-field {
+            background-color: #f8f8f8;
+        }
+
+        .input-addon-group input {
+            background-color: #f8f8f8;
+        }
+
+        .input-addon-group .icon-container {
+            position: absolute;
+            color: var(--text-gray);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            width: 1.5rem;
+            height: 100%;
+            left: 1.25rem;
+        }
+
+        .input-addon-group .input-field.has-icon-left {
+            padding-left: 3rem;
+        }
+
+        .input-addon-group .icon-container.right {
+            right: 1.25rem;
+            left: auto;
+        }
+
+        .input-addon-group input::placeholder,
+        select {
+            font-family: 'Khmer OS Battambang', sans-serif;
+        }
+
+        .input-addon-group select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.25rem center;
+            background-size: 1rem;
+        }
+
+        .form-submit-container {
+            padding-top: 0.5rem;
+            text-align: center;
+        }
+
+        .dashboard-submit-btn {
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            padding: 0.85rem 1.5rem;
+            border: none;
+            border-radius: 9999px;
+            color: #fff;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease-in-out;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-family: 'Khmer OS Battambang', sans-serif;
+        }
+
+        .dashboard-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+        }
+
+        .dashboard-submit-btn:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .no-data-message {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            border: 2px dashed var(--border-color);
+            border-radius: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: var(--primary-dark-color);
+            color: #ffffff;
+            text-align: center;
+            padding: 0.1rem 1rem;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer-text {
+            font-family: 'Khmer OS Muol Light';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .footer-text-under {
+            font-size: 0.8rem;
+            margin-top: -1rem;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            #appContainer {
+                padding: 2.5rem;
+                border-radius: 1.5rem;
+                max-width: 28rem;
+            }
+
+            .title {
+                font-size: 1.25rem;
+            }
+
+            .submit-btn {
+                width: auto;
+                max-width: 150px;
+            }
+
+            .dashboard-header {
+                flex-direction: row;
+                padding: 1.5rem 2rem;
+                gap: 1rem;
+            }
+
+            .dashboard-header .logo-group {
+                flex-direction: row;
+            }
+
+            .dashboard-header .logo-group img {
+                width: 80px;
+                height: 90px;
+            }
+
+            .dashboard-header .logo-group span {
+                flex-direction: row;
+                font-size: 1.5rem;
+            }
+
+            .dashboard-header .user-info {
+                gap: 1rem;
+            }
+
+            .tab-button {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .dashboard-main {
+                padding: 2.5rem;
+                margin-top: 2rem;
+            }
+
+            .dashboard-main h2 {
+                font-size: 1.75rem;
+            }
+
+            .dashboard-main .subtitle {
+                font-size: 1rem;
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #appContainer.dashboard-mode {
+                max-width: 900px;
+            }
+
+            .dashboard-header {
+                padding: 1.5rem 4rem;
+            }
+        }
