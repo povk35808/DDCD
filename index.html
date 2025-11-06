@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="km">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>និស្សិតត្រឡប់មកពីច្បាប់វិញ</title>
+    <link rel="shortcut icon" href="./DUC.png" type="image/x-icon">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div id="welcomeAlert" class="custom-alert-overlay">
+        <div class="custom-alert-box">
+            <svg class="custom-alert-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                stroke-width="1.5" stroke="currentColor">
+                <defs>
+                    <linearGradient id="welcome-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#fde047;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#f97316;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                    stroke="url(#welcome-gradient)"></path>
+            </svg>
+            <h3 class="custom-alert-title">សូមស្វាគមន៍!</h3>
+            <p class="custom-alert-text">និស្សិតទាំងអស់នៃការវិលត្រឡប់មកពីច្បាប់វិញ</p>
+            <button id="closeWelcomeAlert" class="custom-alert-button">យល់ព្រម</button>
+        </div>
+    </div>
+
+    <div id="successAlert" class="custom-alert-overlay">
+        <div class="custom-alert-box">
+            <svg id="success-icon" class="custom-alert-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="circle" cx="26" cy="26" r="24" fill="none" stroke="#16a34a" stroke-width="3"
+                    stroke-dasharray="151" stroke-dashoffset="151" />
+                <path class="checkmark" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round"
+                    stroke-linejoin="round" d="M14 27l8 8 16-16" stroke-dasharray="26" stroke-dashoffset="26" />
+            </svg>
+            <h3 class="custom-alert-title">សូមអបអរសាទរ!</h3>
+            <p class="custom-alert-text">ទិន្នន័យរបស់អ្នកបញ្ជូនបានដោយជោគជ័យ</p>
+            <button id="closeSuccessAlert" class="custom-alert-button">បិទ</button>
+            <div class="alert-progress-bar"></div>
+        </div>
+    </div>
+
+    <div id="appContainer">
+
+        <div id="mainForm">
+            <img src="./DUC.png" alt="DUC Logo" style="width: 80px; height: 90px; display: block; margin: 0 auto;">
+            <h2 class="title">និស្សិតត្រឡប់មកពីច្បាប់វិញ</h2>
+
+            <form id="studentForm" class="form-container">
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+
+                <div class="input-group">
+                    <label for="studentName">ឈ្មោះនិស្សិត</label>
+                    <div class="input-with-icon">
+                        <input type="text" id="studentName" name="studentName" required class="input-field"
+                            placeholder="បញ្ចូលឈ្មោះនិស្សិត...">
+                    </div>
+                    <div id="customDropdown" class="custom-dropdown-content"></div>
+                </div>
+
+                <div class="input-group">
+                    <label for="studentEmail">អ៊ីមែល</label>
+                    <input type="email" id="studentEmail" name="studentEmail" required disabled class="input-field"
+                        placeholder="example@gmail.com">
+                </div>
+
+                <button type="submit" id="submitBtn" disabled class="submit-btn">
+                    បញ្ជូនទិន្នន័យ
+                </button>
+            </form>
+
+            <div id="messageBox" class="message-box message-error">
+                កំពុងពិនិត្យទីតាំងរបស់អ្នក...
+            </div>
+        </div>
+
+        <div id="dashboard" class="hidden">
+            <header class="dashboard-header">
+                <div class="logo-group">
+                    <img src="./DUC.png" alt="DUC Logo">
+                    <span>សាកលវិទ្យាល័យឌីជីថលកម្ពុជា</span>
+                </div>
+                <div class="user-info">
+                    <span id="userEmailDisplay"></span>
+                    <button id="logoutBtn" class="logout-btn-small">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" x2="9" y1="12" y2="12" />
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <main class="dashboard-main">
+                <div class="tab-container">
+                    <div id="tab-home" class="tab-button active">ច្បាប់ទៅផ្ទះ</div>
+                    <div id="tab-entry" class="tab-button">ច្បាប់ចេញចូល</div>
+                </div>
+
+                <div id="home-leave-content">
+                    <div id="home-leave-form" class="hidden">
+                        <h2>និស្សិតត្រឡប់មកពីច្បាប់វិញ</h2>
+                        <p class="subtitle">សូមជ្រើសរើសឈ្មោះខាងក្រោមដើម្បីស្នើសុំចូលមកវិញ</p>
+                        <form id="home-leave-request-form" class="form-container">
+                            <div class="form-grid">
+                                <div>
+                                    <label for="student-name-dropdown-home">ឈ្មោះនិស្សិត</label>
+                                    <div class="input-addon-group">
+                                        <span class="icon-container left">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                                fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                        <select id="student-name-dropdown-home" name="student-name-dropdown-home"
+                                            class="input-field has-icon-left" required>
+                                            <option value="" disabled selected>ជ្រើសរើសឈ្មោះនិស្សិត</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="college-home"">មហាវិទ្យាល័យ</label>
+                                    <div class=" input-addon-group">
+                                        <input type="text" id="college-home" name="college-home" class="input-field"
+                                            placeholder="មហាវិទ្យាល័យ" disabled>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="leave-date-home">ថ្ងៃចេញ</label>
+                        <div class="input-addon-group">
+                            <input type="date" id="leave-date-home" name="leave-date-home" class="input-field" disabled>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="display: none;">
+                        <label for="return-date-home">ថ្ងៃត្រឡប់មកវិញ</label>
+                        <div class="input-addon-group">
+                            <input type="date" id="return-date-home" name="return-date-home" class="input-field">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="reason-home">មូលហេតុ</label>
+                        <div>
+                            <textarea id="reason-home" name="reason-home" rows="4" placeholder="មូលហេតុ"
+                                class="input-field" disabled></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-submit-container">
+                        <button type="submit" id="home-leave-submit-btn" class="dashboard-submit-btn">
+                            បញ្ជូនទិន្នន័យ
+                        </button>
+                    </div>
+                    </form>
+                </div>
+                <div id="no-records-message-home" class="no-data-message hidden">
+                    មិនមានឈ្មោះរបស់អ្នកនៅក្នុង ច្បាប់ទៅផ្ទះ នោះទេ
+                </div>
+        </div>
+
+        <div id="entry-leave-content">
+            <div id="entry-leave-form" class="hidden">
+                <h2>និស្សិតចេញចូល</h2>
+                <p class="subtitle">សូមជ្រើសរើសឈ្មោះខាងក្រោមដើម្បីស្នើសុំចូលមកវិញ</p>
+                <form id="entry-leave-request-form" class="form-container">
+                    <div class="form-grid">
+                        <div>
+                            <label for="student-name-dropdown-entry">ឈ្មោះនិស្សិត</label>
+                            <div class="input-addon-group">
+                                <span class="icon-container left">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </span>
+                                <select id="student-name-dropdown-entry" name="student-name-dropdown-entry"
+                                    class="input-field has-icon-left" required>
+                                    <option value="" disabled selected>ជ្រើសរើសឈ្មោះនិស្សិត</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="college-entry">មហាវិទ្យាល័យ</label>
+                            <div class="input-addon-group">
+                                <input type="text" id="college-entry" name="college-entry" class="input-field"
+                                    placeholder="មហាវិទ្យាល័យ" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="leave-date-entry">ថ្ងៃចេញ</label>
+                        <div class="input-addon-group">
+                            <input type="date" id="leave-date-entry" name="leave-date-entry" class="input-field"
+                                disabled>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="display: none;">
+                        <label for="return-date-entry">ថ្ងៃត្រឡប់មកវិញ</label>
+                        <div class="input-addon-group">
+                            <input type="date" id="return-date-entry" name="return-date-entry" class="input-field">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="reason-entry">មូលហេតុ</label>
+                        <div>
+                            <textarea id="reason-entry" name="reason-entry" rows="4" placeholder="បំពេញមូលហេតុ..."
+                                class="input-field" disabled></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-submit-container">
+                        <button type="submit" id="entry-leave-submit-btn" class="dashboard-submit-btn">
+                            បញ្ជូនទិន្នន័យ
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div id="no-records-message-entry" class="no-data-message hidden">
+                មិនមានឈ្មោះរបស់អ្នកនៅក្នុង ច្បាប់ចេញចូល នោះទេ
+            </div>
+        </div>
+        </main>
+    </div>
+    </div>
+
+    <footer class="footer">
+        <h4 class="footer-text">© 2025 សាកលវិទ្យាល័យឌីជីថលកម្ពុជា</h4>
+        <p class="footer-text-under">រៀបចំដោយនិស្សិត វុធ វត្តនា</p>
+    </footer>
+
+    <script src="./main.js"></script>
+</body>
+
+</html>
